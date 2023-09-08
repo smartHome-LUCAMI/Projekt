@@ -13,22 +13,22 @@ digraph {
     node [shape = box, label = "11"]O4;
 
     // Transitions between hidden states
-    H1 -> H1 [label = "a"];
-    H1 -> H2 [label = "a"];
-    H2 -> H2 [label = "a"];
-    H2 -> H1 [label = "a"];
+    H1 -> H1 [label = <P<SUB>1_1</SUB>>];
+    H1 -> H2 [label = <P<SUB>1_0</SUB>>];
+    H2 -> H2 [label = <P<SUB>0_0</SUB>>];
+    H2 -> H1 [label = <P<SUB>0_1</SUB>>];
 
 
     // Transitions from hidden states to observable states
-    H1 -> O1 [label = "g"];
-    H1 -> O2 [label = "g"];
-    H1 -> O3 [label = "g"];
-    H1 -> O4 [label = "g"];
+    H1 -> O1 [label = <P<SUB>1_00</SUB>>];
+    H1 -> O2 [label = <P<SUB>1_01</SUB>>];
+    H1 -> O3 [label = <P<SUB>1_10</SUB>>];
+    H1 -> O4 [label = <P<SUB>1_11</SUB>>];
 
 
-    H2 -> O1 [label = "g"];
-    H2 -> O2 [label = "g"];
-    H2 -> O3 [label = "g"];
-    H2 -> O4 [label = "g"];
+    H2 -> O1 [label = <P<SUB>0_00</SUB>>];
+    H2 -> O2 [label = <P<SUB>0_01</SUB>>];
+    H2 -> O3 [label = <P<SUB>0_10</SUB>>];
+    H2 -> O4 [label = <P<SUB>0_11</SUB>>];
     
 }
