@@ -16,13 +16,13 @@ def set_default(hour_span, data_frame, attribute, graphing_interval):
     """
     # Returns: nothing (the operation on the data frame is done inplace)
 
-    data_frame[attribute] = 0.1
+    data_frame[attribute] = 0.0
 
     for interval in hour_span:
         mask = (data_frame.index.hour >= interval[0]) & (
             data_frame.index.hour <= interval[1]
         )
-        data_frame[attribute].mask(cond=mask, other=0.9, inplace=True)
+        data_frame[attribute].mask(cond=mask, other=1.0, inplace=True)
 
     star_index_date = data_frame.index.get_loc(graphing_interval[0])
     end_index_date = data_frame.index.get_loc(graphing_interval[1])
@@ -47,13 +47,13 @@ def set_GT(hour_span, data_frame, attribute, graphing_interval):
 
     # Returns: nothing (the operation on the data frame is done inplace)
 
-    data_frame[attribute] = 0.1
+    data_frame[attribute] = 0.0
 
     for interval in hour_span:
         mask = (data_frame.index.hour >= interval[0]) & (
             data_frame.index.hour <= interval[1]
         )
-        data_frame[attribute].mask(cond=mask, other=0.9, inplace=True)
+        data_frame[attribute].mask(cond=mask, other=1.0, inplace=True)
 
     star_index_date = data_frame.index.get_loc(graphing_interval[0])
     end_index_date = data_frame.index.get_loc(graphing_interval[1])
@@ -80,10 +80,10 @@ def tresholding(data_frame, attribute, treshold, graphing_interval):
     # Returns: nothing (the operation on the data frame is done inplace)
 
     data_frame[attribute].mask(
-        cond=(data_frame[attribute] >= treshold), inplace=True, other=0.9
+        cond=(data_frame[attribute] >= treshold), inplace=True, other=1.0
     )
     data_frame[attribute].mask(
-        cond=(data_frame[attribute] <= treshold), inplace=True, other=0.1
+        cond=(data_frame[attribute] < treshold), inplace=True, other=0.0
     )
 
     star_index_date = data_frame.index.get_loc(graphing_interval[0])
@@ -142,10 +142,10 @@ def post_process(data_frame, attribute, time_span, treshold_interval):
         for j in pd.date_range(
             start=i, end=i + pd.Timedelta(treshold_interval, "m"), freq="min"
         ):
-            if (data_frame.loc[i, attribute] == 0.9) & (
-                data_frame.loc[j, attribute] == 0.9
+            if (data_frame.loc[i, attribute] == 1.0) & (
+                data_frame.loc[j, attribute] == 1.0
             ):
-                data_frame.loc[i:j, attribute] = 0.9
+                data_frame.loc[i:j, attribute] = 1.0
 
     star_index_date = data_frame.index.get_loc(time_span[0])
     end_index_date = data_frame.index.get_loc(time_span[1])
