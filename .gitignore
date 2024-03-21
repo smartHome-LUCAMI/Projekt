@@ -1,6 +1,6 @@
 # Ignore specific files
 HomeC.csv
-df.csv
+
 
 # Ignore specific folders
 .ipynb_checkpoints/
